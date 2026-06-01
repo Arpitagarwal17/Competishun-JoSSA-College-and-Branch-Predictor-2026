@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Search, X } from "lucide-react";
+import { Check, ChevronDown, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export type DropdownOption = {
@@ -195,6 +195,22 @@ export function MultiSelectDropdown({
             })}
             {visibleOptions.length === 0 ? <div className="px-2 py-3 text-sm text-muted">No options</div> : null}
           </div>
+
+          {selectionMode === "multiple" ? (
+            <div className="sticky bottom-0 -mx-2 -mb-2 mt-2 flex items-center justify-between gap-2 border-t border-bluebrand/10 bg-white/95 px-2 py-2 backdrop-blur">
+              <span className="min-w-0 truncate text-xs font-bold text-muted">
+                {selectedValues.length > 0 ? `${selectedValues.length} selected` : "No filter selected"}
+              </span>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="inline-flex min-h-9 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-bluebrand px-3 text-xs font-black text-white shadow-sm transition hover:bg-bluebrand-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orangebrand"
+              >
+                <Check aria-hidden className="h-3.5 w-3.5" />
+                Done
+              </button>
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>
