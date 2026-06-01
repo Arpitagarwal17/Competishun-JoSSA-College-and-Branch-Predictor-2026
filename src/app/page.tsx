@@ -7,6 +7,7 @@ import { CompetishunLogo } from "@/components/CompetishunLogo";
 import { FilterPanel } from "@/components/FilterPanel";
 import { HowToUseModal } from "@/components/HowToUseModal";
 import { PreferenceListPanel, type PreferenceArrangeMode } from "@/components/PreferenceListPanel";
+import { RankInputs } from "@/components/RankInputs";
 import { ResultCard } from "@/components/ResultCard";
 import { ResultsTable } from "@/components/ResultsTable";
 import { getBranchDisplayName } from "@/lib/branchGroups";
@@ -141,6 +142,7 @@ export default function Home() {
     const text = "Try the Competishun JoSAA College & Branch Predictor 2026: " + window.location.origin;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
   };
+  const patchFilters = (patch: Partial<JosaaFilters>) => setFilters((current) => ({ ...current, ...patch }));
   const togglePreference = (row: FilteredCutoffRow) =>
     setPreferenceRows((current) => {
       if (current.some((item) => item.id === row.id)) {
@@ -257,15 +259,6 @@ export default function Home() {
                 <MessageCircle aria-hidden className="h-4 w-4" />
                 <span className="hidden xl:inline">Share</span>
               </button>
-              <button
-                type="button"
-                onClick={() => setDrawerOpen(true)}
-                className="inline-flex min-h-10 w-10 items-center justify-center gap-2 rounded-xl bg-bluebrand text-sm font-black text-white shadow-sm transition hover:bg-bluebrand-dark focus-visible:outline-orangebrand sm:w-auto sm:px-4 lg:hidden"
-                aria-label="Open filters"
-              >
-                <Filter aria-hidden className="h-4 w-4" />
-                <span className="hidden sm:inline">Filters</span>
-              </button>
             </div>
           </div>
 
@@ -278,6 +271,21 @@ export default function Home() {
             JoSAA College & Branch Predictor 2026
           </h1>
           <div className="mx-auto mt-2 h-1 w-28 rounded-full bg-gradient-to-r from-orangebrand to-bluebrand shadow-[0_8px_18px_rgba(7,0,159,0.14)]" />
+        </section>
+
+        <section className="rounded-2xl border border-bluebrand/15 bg-white/94 p-3 shadow-[0_16px_38px_rgba(7,0,159,0.09)] backdrop-blur">
+          <div className="grid gap-2.5 sm:grid-cols-2 lg:max-w-3xl">
+            <RankInputs filters={filters} onChange={patchFilters} compact />
+            <button
+              type="button"
+              onClick={() => setDrawerOpen(true)}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-bluebrand px-4 text-sm font-black text-white shadow-[0_14px_28px_rgba(7,0,159,0.18)] transition hover:bg-bluebrand-dark sm:col-span-2 lg:hidden"
+              aria-label="Open filters"
+            >
+              <Filter aria-hidden className="h-4 w-4" />
+              Filters
+            </button>
+          </div>
         </section>
 
         <div className="hidden lg:block">
@@ -399,6 +407,7 @@ export default function Home() {
               rows={cutoffs}
               onReset={resetFilters}
               onClose={() => setDrawerOpen(false)}
+              onApply={() => setDrawerOpen(false)}
             />
           </div>
         </div>

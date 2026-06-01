@@ -25,28 +25,28 @@ type Props = {
 const GUIDE_ITEMS = [
   {
     icon: Award,
-    title: "Enter the correct rank",
-    body: "Use JEE Advanced rank for IIT choices and JEE Main rank for NIT, IIIT and GFTI choices. Leave ranks blank when you only want to browse cutoffs."
+    title: "Enter rank above filters",
+    body: "Use the rank boxes on the main screen. JEE Advanced rank is for IIT choices. JEE Main rank is for NIT, IIIT and GFTI choices."
   },
   {
     icon: Building2,
-    title: "Choose college type",
-    body: "Start with IIT, NIT, IIIT or GFTI. The predictor keeps colleges grouped in a student-friendly priority order."
+    title: "Open filters",
+    body: "Use Filters to narrow college type, college, branch, degree, duration, category, gender and home state."
   },
   {
     icon: Search,
-    title: "Search colleges",
-    body: "Use College search when you want a specific institute. Combine it with college type for faster, cleaner results."
+    title: "Choose college and branch",
+    body: "Select IIT, NIT, IIIT or GFTI, then choose specific colleges or branch groups like CSE, AI, ECE and Mathematics."
   },
   {
     icon: GraduationCap,
-    title: "Select branch and course",
-    body: "Filter by branch, degree and course duration to compare only the programs that match your target."
+    title: "Set course filters",
+    body: "Use degree and course duration when you want only 4-year programs, 5-year dual degrees, B.Tech, BS, B.Sc. or similar courses."
   },
   {
     icon: ShieldCheck,
-    title: "Set category, gender and home state",
-    body: "Match your counselling profile carefully. Quota shown in results tells whether the row is All India, Home State or Other State."
+    title: "Set student profile",
+    body: "Choose category, gender and home state carefully. On mobile, tap Show Results after applying filters."
   },
   {
     icon: Filter,
@@ -65,7 +65,7 @@ const GUIDE_ITEMS = [
   }
 ];
 
-const FLOW_STEPS = ["Enter rank", "Apply filters", "Add choices", "Export PDF"];
+const FLOW_STEPS = ["Enter rank", "Open filters", "Show results", "Export PDF"];
 
 export function HowToUseModal({ open, onClose, onShareWhatsApp }: Props) {
   useEffect(() => {
@@ -181,7 +181,7 @@ export function HowToUseModal({ open, onClose, onShareWhatsApp }: Props) {
               <div>
                 <h3 className="text-sm font-black text-ink">Best workflow</h3>
                 <p className="mt-1 text-xs font-semibold leading-relaxed text-muted">
-                  First enter rank, then select profile filters, add realistic choices, arrange the list, export PDF and share for review.
+                  First enter rank, then apply filters, review matching choices, arrange the preference list, export PDF and share for review.
                 </p>
               </div>
             </div>

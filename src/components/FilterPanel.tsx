@@ -7,7 +7,6 @@ import { COURSE_DEGREE_OPTIONS, getCourseDegree } from "@/lib/courseDegrees";
 import { getSeatTypeLabel, seatTypePriority } from "@/lib/displayLabels";
 import { HOME_STATE_OPTIONS } from "@/lib/homeStates";
 import { MultiSelectDropdown } from "./MultiSelectDropdown";
-import { RankInputs } from "./RankInputs";
 import type { BranchGroupId, CollegeType, CourseDegree, CourseDuration, CutoffRow, FilterOptions, JosaaFilters } from "@/lib/types";
 
 type Props = {
@@ -17,6 +16,7 @@ type Props = {
   rows: CutoffRow[];
   onReset: () => void;
   onClose?: () => void;
+  onApply?: () => void;
   variant?: "sidebar" | "top";
 };
 
@@ -32,15 +32,6 @@ const COURSE_DURATION_OPTIONS: Array<{ value: CourseDuration; label: string }> =
   { value: "4", label: "4 Years" },
   { value: "5", label: "5 Years" }
 ];
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-2">
-      <h2 className="text-xs font-bold uppercase tracking-wide text-muted">{title}</h2>
-      {children}
-    </section>
-  );
-}
 
 const BRANCH_DISPLAY_ORDER: BranchGroupId[] = [
   "cse",
@@ -111,7 +102,7 @@ function GenderSelect({
   );
 }
 
-export function FilterPanel({ filters, onFiltersChange, options, rows, onReset, onClose, variant = "sidebar" }: Props) {
+export function FilterPanel({ filters, onFiltersChange, options, rows, onReset, onClose, onApply, variant = "sidebar" }: Props) {
   const patch = (next: Partial<JosaaFilters>) => onFiltersChange({ ...filters, ...next });
   const dropdownMode = variant === "top" ? "overlay" : "flow";
 
@@ -207,7 +198,7 @@ export function FilterPanel({ filters, onFiltersChange, options, rows, onReset, 
           </button>
         </div>
 
-        <div className="grid gap-2.5 overflow-visible rounded-b-2xl bg-panel-strong/75 p-3 sm:grid-cols-2 lg:grid-cols-5 xl:gap-3">
+        <div className="grid gap-2.5 overflow-visible rounded-b-2xl bg-panel-strong/75 p-3 sm:grid-cols-2 lg:grid-cols-3 xl:gap-3">
           <div>
             <MultiSelectDropdown
               label="College Type"
@@ -231,8 +222,6 @@ export function FilterPanel({ filters, onFiltersChange, options, rows, onReset, 
               popupMode={dropdownMode}
             />
           </div>
-
-          <RankInputs filters={filters} onChange={patch} compact />
 
           <div>
             <MultiSelectDropdown
@@ -287,7 +276,7 @@ export function FilterPanel({ filters, onFiltersChange, options, rows, onReset, 
             <GenderSelect filters={filters} patch={patch} popupMode={dropdownMode} />
           </div>
 
-          <div>
+          <div className="sm:col-span-2 lg:col-span-2">
             <MultiSelectDropdown
               label="Home State"
               options={homeStateOptions}
@@ -350,10 +339,6 @@ export function FilterPanel({ filters, onFiltersChange, options, rows, onReset, 
             popupMode={dropdownMode}
           />
         </div>
-
-        <Section title="Ranks">
-          <RankInputs filters={filters} onChange={patch} />
-        </Section>
 
         <div>
           <MultiSelectDropdown
@@ -422,15 +407,22 @@ export function FilterPanel({ filters, onFiltersChange, options, rows, onReset, 
         </div>
       </div>
 
-      <div className="border-t border-line p-4">
+      <div className="grid gap-2 border-t border-line bg-white/92 p-4 sm:grid-cols-2">
         <button
           type="button"
           onClick={onReset}
-          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-orangebrand px-4 text-sm font-bold text-white transition hover:bg-orangebrand-dark"
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-orangebrand/25 bg-orangebrand/10 px-4 text-sm font-black text-orangebrand transition hover:bg-orangebrand hover:text-white"
           aria-label="Reset all filters"
         >
           <RotateCcw aria-hidden className="h-4 w-4" />
           Reset
+        </button>
+        <button
+          type="button"
+          onClick={onApply ?? onClose}
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-bluebrand px-4 text-sm font-black text-white shadow-[0_12px_24px_rgba(7,0,159,0.18)] transition hover:bg-bluebrand-dark"
+        >
+          Show Results
         </button>
       </div>
     </div>
