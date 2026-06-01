@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --canvas: #eef4ff;
+  --panel: #ffffff;
+  --panel-strong: #f7faff;
+  --ink: #101735;
+  --muted: #66728a;
+  --line: #cfdbf7;
+  --forest: #07009f;
+  --brass: #ff5b00;
+  --clay: #c43b2f;
+  --skyquiet: #0b62d8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--canvas);
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(90deg, rgba(7, 0, 159, 0.055) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(7, 0, 159, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 91, 0, 0.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 91, 0, 0.045) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255, 91, 0, 0.07), transparent 30rem),
+    linear-gradient(180deg, rgba(7, 0, 159, 0.055), transparent 26rem),
+    var(--canvas);
+  background-position: top center;
+  background-size: 32px 32px, 32px 32px, 128px 128px, 128px 128px, auto, auto;
+  color: var(--ink);
+  font-family: Aptos, "Segoe UI Variable", "Segoe UI", sans-serif;
+  letter-spacing: 0;
+  max-width: 100%;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(255, 91, 0, 0.18);
+  color: var(--ink);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 2px;
+}
+
+.control {
+  border: 1px solid var(--line);
+  background: rgba(248, 251, 255, 0.96);
+  color: var(--ink);
+  border-radius: 12px;
+  min-height: 46px;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.control:hover {
+  border-color: #a9b7ff;
+  background: #fff;
+}
+
+.control:focus {
+  border-color: var(--forest);
+  box-shadow: 0 0 0 3px rgba(7, 0, 159, 0.12);
+  outline: none;
+}
+
+.filter-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 24px rgba(7, 0, 159, 0.05);
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.filter-card:hover {
+  border-color: rgba(7, 0, 159, 0.32);
+  background: #fff;
+  box-shadow: 0 14px 30px rgba(7, 0, 159, 0.07);
+}
+
+.filter-card:focus-within {
+  border-color: rgba(255, 91, 0, 0.55);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 91, 0, 0.1), 0 14px 32px rgba(7, 0, 159, 0.07);
+}
+
+.filter-card :is(button, input, select):focus-visible,
+.rank-field-input:focus-visible,
+.seat-gender-select:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input.rank-field-input,
+select.seat-gender-select {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #b1bbf5 transparent;
+}
+
+.desktop-table {
+  display: none;
+}
+
+.mobile-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.preference-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 306px), 1fr));
+}
+
+@media (min-width: 640px) and (max-width: 1179px) {
+  .mobile-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 920px) and (max-width: 1179px) {
+  .mobile-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1180px) {
+  .desktop-table {
+    display: block;
+  }
+
+  .mobile-cards {
+    display: none;
+  }
+}
